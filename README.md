@@ -14,21 +14,22 @@ Skapa ett README.md-dokument där du kortfattat beskriver:
 
 
 ## Developer Dependencies
-| Dependency    | Version   |
-| ------------- |:---------:|
-| browser-sync  | 2.26.7    |
-| gulp          | 4.0.2     |
-| gulp-concat   | 2.6.1     |
-| gulp-imagemin | 6.1.0     |
-| gulp-sass     | 4.0.2     |
-| gulp-terser   | 1.2.0     |
-| gulp-uglify   | 3.0.2     |
+| Dependency    | Version   | Motivering                                                |
+| ------------- |:---------:|:---------------------------------------------------------:|
+| browser-sync  | 2.26.7    | Uppdaterar webbläsaren vid ändringar i html, css eller js |
+| gulp          | 4.0.2     | Grundmodulen för att kunna använda en gulpfile.js         |
+| gulp-concat   | 2.6.1     | Modul som pusslar ihop filer, i det här fallet js-filer   |
+| gulp-imagemin | 6.1.0     | Modul som krymper images så att de tar mindre plats       |
+| gulp-sass     | 4.0.2     | Modul som konverterar sass/scss-filer till css-filer      |
+| gulp-terser   | 1.2.0     | Modul som rensar bort alla ws (= white spaces) från filer |
+| gulp-uglify   | 3.0.2     | Modul som fungerar som gulp-terser, men klarar inte ES6   |
 
 
-  ## Help from these sites
-  https://www.youtube.com/watch?v=QgMQeLymAdU
-  https://www.youtube.com/watch?v=1rw9MfIleEg
-  https://www.youtube.com/watch?v=rmXVmfx3rNo
-  https://gulpjs.com/
-  https://github.com/gulpjs/gulp/blob/v3.9.1/docs/API.md
-  
+## Help from these sites
+<ul>
+  <li>https://www.youtube.com/watch?v=QgMQeLymAdU</li>
+  <li>https://www.youtube.com/watch?v=1rw9MfIleEg</li>
+  <li>https://www.youtube.com/watch?v=rmXVmfx3rNo</li>
+  <li>https://gulpjs.com/</li>
+  <li>https://github.com/gulpjs/gulp/blob/v3.9.1/docs/API.md</li>
+</ul>
