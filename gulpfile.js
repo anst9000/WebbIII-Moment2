@@ -3,8 +3,9 @@ const gulp = require('gulp')
 const sass = require('gulp-sass')
 const imagemin = require('gulp-imagemin')
 const terser = require('gulp-terser')
+const cleanCSS = require('gulp-clean-css')
 const concat = require('gulp-concat')
-// const { watch, series, parallel } = require('gulp');
+const { series, parallel } = require('gulp');
 const browserSync = require('browser-sync').create()
 
 // Logs Message
@@ -42,6 +43,18 @@ function minify() {
         .pipe(gulp.dest('pub/js'))
 }
 
+// Concatenate all scss-files into 1 single css-file
+function concatCss() {
+    // Folder for scss files
+    return gulp.src('src/scss/**/*.scss')
+        .pipe(concat('styles.scss'))    // The resultant file
+        // Run the files via sass compiler + error checking
+        .pipe(sass().on('error', sass.logError))
+        .pipe(cleanCSS())               // Removes white spaces
+        .pipe(gulp.dest('pub/css'))     // Store the css file
+        .pipe(browserSync.stream())     // Make sure changes shows in browsers
+}
+
 // Concatenate all js-files into 1 single file
 function concatJs() {
     return gulp.src('src/js/**/*.js')
@@ -50,18 +63,20 @@ function concatJs() {
         .pipe(gulp.dest('pub/js'))      // Place index.js in pub/
 }
 
-const all = gulp.parallel(style, copyHtml, imageMin, minify, message, watch)
+const all = parallel(concatCss, concatJs, copyHtml, imageMin, message, watchFiles)
 
 // Sets Gulp to automatically update when any changes are made
-function watch() {
+function watchFiles() {
     browserSync.init({
         server: {
             baseDir: 'pub/'
         }
     })
-    gulp.watch('src/scss/**/*.scss', style)
+    gulp.watch('src/scss/**/*.scss', concatCss)
+    gulp.watch('src/js/**/*.js', concatJs)
     gulp.watch('src/**/*.html').on('change', browserSync.reload)
     gulp.watch('src/js/**/*.js').on('change', browserSync.reload)
+    gulp.watch("src/*.html").on('change', browserSync.reload);
 }
 
 // Export the function to be used in terminal
@@ -70,6 +85,7 @@ exports.style = style
 exports.copyHtml = copyHtml
 exports.imageMin = imageMin
 exports.minify = minify
+exports.concatCss = concatCss
 exports.concatJs = concatJs
-exports.watch = watch
+exports.watchFiles = watchFiles
 exports.all = all
