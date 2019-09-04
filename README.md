@@ -1,9 +1,7 @@
 # WebbIII-Moment2
 
-## Redovisning
+## Presentation
 ![Gulp.js logo](https://github.com/anst9000/WebbIII-Moment2/blob/master/gulp.png "Gulp logo")
-
-
 ### Why automate your workflow?
 > There are many repetitive task in web development, for example minifying code, optimizing images, saving files to directory for publishing and preprocessing CSS. Gulp or Grunt can be used to assist and speed up these tasks.
 ### Node modules used
@@ -60,6 +58,9 @@ function watchFiles() {
 
 ## Homepage
 [WebbIII-Moment2](https://github.com/anst9000/WebbIII-Moment2)
+```javascript
+clone https://github.com/anst9000/WebbIII-Moment2.git
+```
 
 
 ## Developer Dependencies
