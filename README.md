@@ -59,7 +59,7 @@ function watchFiles() {
 ## Homepage
 [WebbIII-Moment2](https://github.com/anst9000/WebbIII-Moment2)
 ```javascript
-clone https://github.com/anst9000/WebbIII-Moment2.git
+git clone https://github.com/anst9000/WebbIII-Moment2.git
 ```
 
 
