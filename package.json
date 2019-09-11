@@ -1,8 +1,8 @@
 {
-  "name": "project_template",
+  "name": "webb_workflow",
   "version": "1.0.0",
   "description": "Project template includeing node.js & Gulp",
-  "main": "index.js",
+  "main": "main.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
@@ -16,19 +16,16 @@
     "template",
     "webb"
   ],
-  "author": "Anders Stromberg <coltlaboy@yahoo.se>",
+  "author": "Anders Stromberg <andersstromberg69@gmail.com>",
   "license": "MIT",
-  "bugs": {
-    "url": "https://github.com/anst9000/WebbIII-Moment2/issues"
-  },
-  "homepage": "https://github.com/anst9000/WebbIII-Moment2#readme",
   "devDependencies": {
     "browser-sync": "^2.26.7",
+    "del": "^5.1.0",
     "gulp": "^4.0.2",
     "gulp-clean-css": "^4.2.0",
     "gulp-concat": "^2.6.1",
     "gulp-imagemin": "^6.1.0",
     "gulp-sass": "^4.0.2",
-    "gulp-terser": "^1.2.0"
+    "gulp-uglify-es": "^1.0.4"
   }
 }
