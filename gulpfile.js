@@ -12,7 +12,7 @@ const files = {
     scssPath: 'src/scss/**/*.scss',
     jsPath: 'src/js/**/*.js',
     imgPath: ['src/**/*.{gif,png,jpg,jpeg}'],
-    imgPubPath: 'pub/img'
+    imgPubPath: 'pub'
 }
 
 const imgTask = series(imgClean, imgMinify)
