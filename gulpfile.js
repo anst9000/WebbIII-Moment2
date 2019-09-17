@@ -5,6 +5,7 @@ const sass = require('gulp-sass')
 const cleanCSS = require('gulp-clean-css')
 const imagemin = require('gulp-imagemin')
 const del = require('del')
+const sourcemaps = require('gulp-sourcemaps');
 const browserSync = require('browser-sync').create()
 
 const files = {
@@ -62,8 +63,10 @@ function jsTask() {
 // Task: Convert scss to css
 function scssTask() {
     return src(files.scssPath)
+        .pipe(sourcemaps.init())
         .pipe(sass().on('error', sass.logError))
         .pipe(cleanCSS())
+        .pipe(sourcemaps.write('./maps'))
         .pipe(dest('pub/css'))
         .pipe(browserSync.stream())     // Make sure changes shows in browsers
 }

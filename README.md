@@ -25,35 +25,37 @@ gulp style
 ```
 > A full explanation of all the commands is followed in the table below.
 
-## Commands
-| Command | Command description |
-| ------- | ------------------- |
-| gulp message | Writes a message in console when Gulp is running |
-| gulp style | Compile scss into css format |
-| gulp copyHtml | Copy all html files from src-folder to pub-folder |
-| gulp imageMin | Minifying images of all formats |
-| gulp minify | Minifying .js-files |
-| gulp concatCss | Concatenate all scss-files into one single .css-file |
-| gulp concatJs | Concatenate all js-files into one single .js-file |
-| gulp all | Running several functions including watchFiles() |
-| gulp watchFiles | Sets Gulp to automatically update when any changes are made |
-
+## Functions
+| Function  | Function description                                                                                                                                                 |
+| --------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| imgMinify | Minifies images of different format and copies them to /pub .                                                                                                        |
+| htmlTask  | Moves html files from /src to /pub and also updates browser when a file is changed.                                                                                  |
+| jsTask    | Moves js files from /src to /pub and then concatenates them into one single js file. It also uglifies the resulting js file. Updates browser if any file is changed. |
+| scssTask  | Moves scss files from /src to /pub, cleans them up and also updates the browser if any file is changed.                                                              |
+| watchTask | Starts the browserSync plugin and watches many different directories to check for changes.                                                                           |
 
 ### Example code from gulpfile.js
 ```javascript
 // Sets Gulp to automatically update when any changes are made
-function watchFiles() {
+// Task: Watcher
+function watchTask() {
     browserSync.init({
         server: {
             baseDir: 'pub/'
         }
     })
-    gulp.watch('src/scss/**/*.scss', concatCss)
-    gulp.watch('src/js/**/*.js', concatJs)
-    gulp.watch('src/**/*.html').on('change', browserSync.reload)
-    gulp.watch('src/js/**/*.js').on('change', browserSync.reload)
-    gulp.watch("src/*.html").on('change', browserSync.reload);
+
+    watch(
+        [files.htmlPath, files.jsPath, files.scssPath],
+        parallel(htmlTask, jsTask, scssTask)
+    ).on('change', browserSync.reload)
+    watch(files.imgPath, imgTask).on('change', browserSync.reload)
 }
+
+exports.default = series(
+    parallel(htmlTask, jsTask, scssTask, imgTask),
+    watchTask
+)
 ```
 
 ## Homepage
@@ -64,16 +66,16 @@ git clone https://github.com/anst9000/WebbIII-Moment2.git
 
 
 ## Developer Dependencies
-| Module         | Version | Module description |
-| -------------- | :-----: | ------------------- |
-| browser-sync   | 2.26.7  | Reloads web browser after changes in html, css or js |
-| gulp           |  4.0.2  | Base module necessary to be able to run gulpfile.js |
-| gulp-concat    |  2.6.1  | Module that concatenates files, both .js- and .css-files |
-| gulp-imagemin  |  6.1.0  | Module that shrinks images to make them smaller |
-| gulp-sass      |  4.0.2  | Module converting sass/scss-files into css-files |
-| gulp-terser    |  1.2.0  | Module that removes white spaces in .js-files |
-| gulp-clean-css |  4.2.0  | Module that removes white spaces in .css-files |
-
+| Module          | Version | Module description                                       |
+| --------------- | :-----: | -------------------------------------------------------- |
+| browser-sync    | ^2.26.7 | Reloads web browser after changes in html, css or js     |
+| gulp            | ^4.0.2  | Base module necessary to be able to run gulpfile.js      |
+| gulp-concat     | ^2.6.1  | Module that concatenates files, both .js- and .css-files |
+| gulp-imagemin   | ^6.1.0  | Module that shrinks images to make them smaller          |
+| gulp-sass       | ^4.0.2  | Module converting sass/scss-files into css-files         |
+| gulp-sourcemaps | ^2.6.5  | Module that creates source map for scss-files            |
+| gulp-terser     | ^1.2.0  | Module that removes white spaces in .js-files            |
+| gulp-clean-css  | ^4.2.0  | Module that removes white spaces in .css-files           |
 
 ## Help from these sites
 <ul>
