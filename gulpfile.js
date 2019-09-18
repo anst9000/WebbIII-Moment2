@@ -1,10 +1,11 @@
 const { src, dest, watch, series, parallel } = require('gulp')
 const concat = require('gulp-concat')
-const uglify = require('gulp-uglify-es').default
+const terser = require('gulp-terser');
 const sass = require('gulp-sass')
 const cleanCSS = require('gulp-clean-css')
 const imagemin = require('gulp-imagemin')
 const del = require('del')
+const babel = require('gulp-babel')
 const sourcemaps = require('gulp-sourcemaps');
 const browserSync = require('browser-sync').create()
 
@@ -55,7 +56,10 @@ function htmlTask() {
 function jsTask() {
     return src(files.jsPath)
         .pipe(concat('main.js'))
-        .pipe(uglify())
+        .pipe(babel({
+            presets: ['@babel/env']
+        }))
+        .pipe(terser())
         .pipe(dest('pub/js'))
         .pipe(browserSync.stream())
 }
