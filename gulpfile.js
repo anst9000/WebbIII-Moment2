@@ -14,8 +14,8 @@ const files = {
   scssPath: 'src/scss/**/*.scss',
   jsPath: 'src/js/**/*.js',
   resPath: 'src/res/**/*',
-  imgPath: ['src/**/*.{gif,png,jpg,jpeg,ico}'],
-  imgPubPath: 'pub'
+  imgPath: ['src/img/**/*.{gif,png,jpg,jpeg,ico}'],
+  imgPubPath: 'pub/img'
 }
 
 const imgTask = series(imgClean, imgMinify)
@@ -107,8 +107,11 @@ function watchTask() {
 }
 
 exports.default = series(
-  series(imgTask, resTask),
-  series(jsTask, scssTask),
+  jsTask,
+  scssTask,
   htmlTask,
+  resTask,
+  imgTask,
   watchTask
 )
+
