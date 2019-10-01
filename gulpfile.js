@@ -4,22 +4,31 @@ const uglify = require('gulp-uglify-es').default
 const sass = require('gulp-sass')
 const cleanCSS = require('gulp-clean-css')
 const imagemin = require('gulp-imagemin')
+const newer = require('gulp-newer');
 const browserSync = require('browser-sync').create()
 
 const files = {
   htmlPath: 'src/**/*.html',
   scssPath: 'src/scss/**/*.scss',
   jsPath: 'src/js/**/*.js',
-  imgPath: "src/img/*"
+  imgPath: "src/img/*",
+  resPath: '/src/res/**/*'
 }
 
-// Task Copy Images - DENNA ERSÄTTER DEN OVAN
+// Task copy images
 function imgTask() {
   return src(files.imgPath)
-    // Minifierar bilderna
+    // Minifying images
     .pipe(imagemin())
     .pipe(dest("pub/img"))
     .pipe(browserSync.stream())
+}
+
+// Task copy resources
+function resTask() {
+  return src('./src/res/**/*')
+    .pipe(newer('./pub/res'))
+    .pipe(dest('./pub/res'));
 }
 
 // Task: copy HTML
@@ -56,13 +65,9 @@ function watchTask() {
     }
   })
   watch(
-    [files.htmlPath, files.jsPath, files.scssPath, files.imgPath],
-    parallel(
-      htmlTask,
-      jsTask,
-      scssTask,
-      imgTask)
+    [files.htmlPath, files.jsPath, files.scssPath, files.imgPath, files.resPath],
+    parallel(htmlTask, jsTask, scssTask, imgTask, resTask)
   )
 }
 
-exports.default = series(parallel(htmlTask, jsTask, scssTask, imgTask), watchTask)
+exports.default = series(parallel(htmlTask, jsTask, scssTask, imgTask, resTask), watchTask)
